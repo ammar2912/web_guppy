@@ -15,18 +15,19 @@ class AlatController extends Controller
     {
         $client = new Client();
 
-        // Mengambil input dari request
+        // Ambil data dari request
         $suhu = $request->input('suhu');
         $ph = $request->input('ph');
         $tds = $request->input('tds');
         $do = $request->input('do');
         $id_alat = $request->input('id_alat');
 
-        // Perhitungan amonia berdasarkan pH dan suhu
+        // Validasi suhu
         if ($suhu == 0) {
             return response()->json(['message' => 'Suhu tidak boleh nol'], 400);
         }
         
+        // Perhitungan amonia
         if ($ph < 6.5) {
             $amonia = $ph / $suhu * 0.202;
         } elseif ($ph == 7.0) {
@@ -36,7 +37,7 @@ class AlatController extends Controller
         }
 
         try {
-            // Simpan data ke tabel alat
+            // Simpan data ke database
             $alat = Alat::create([
                 'suhu' => $suhu,
                 'ph' => $ph,
@@ -48,7 +49,6 @@ class AlatController extends Controller
 
             if ($id_alat == 2) {
                 try {
-                    // Mengirim request ke API Flask
                     $response = $client->post('http://127.0.0.1:5000/kualitas-air', [
                         'form_params' => [
                             'suhu' => $suhu,
@@ -59,44 +59,39 @@ class AlatController extends Controller
                         ]
                     ]);
 
-                    // Mengubah response ke bentuk JSON
                     $json = json_decode($response->getBody(), true);
 
-                    if (!isset($json['hasil']) || !isset($json['label'])) {
-                        return response()->json([
-                            'message' => 'Respon dari API tidak lengkap',
-                            'response' => $json
-                        ], 500);
+                    if (!isset($json['label'])) {
+                        return response()->json(['message' => 'Respon tidak lengkap'], 500);
                     }
 
-                    // Simpan hasil ke tabel kualitas
-                    $kualitas = Kualitas::create([
+                    // Simpan hasil ke database
+                    Kualitas::create([
                         'suhu' => $suhu,
                         'ph' => $ph,
                         'tds' => $tds,
                         'do' => $do,
                         'id_alat' => $id_alat,
                         'hasil' => $json['hasil'],
-                        'label' => $json['label']
+                        'label' => $json['label'],
                     ]);
-                } catch (RequestException $e) {
+
+                    // Kembalikan response label untuk ESP32
                     return response()->json([
-                        'message' => 'Gagal menghubungi API Flask',
-                        'error' => $e->getMessage()
-                    ], 500);
+                        'message' => 'Data berhasil ditambahkan',
+                        'label' => $json['label']
+                    ], 201);
+                } catch (RequestException $e) {
+                    return response()->json(['message' => 'Gagal ke Flask', 'error' => $e->getMessage()], 500);
                 }
             }
 
             return response()->json([
                 'message' => 'Data berhasil ditambahkan',
-                'db_alat' => $alat,
-                'db_kualitas' => $kualitas
+                'label' => "Tidak Ada" // Jika alat bukan ID 2
             ], 201);
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Terjadi kesalahan saat menyimpan data',
-                'error' => $e->getMessage()
-            ], 500);
+            return response()->json(['message' => 'Kesalahan saat menyimpan', 'error' => $e->getMessage()], 500);
         }
     }
 }
