@@ -49,7 +49,7 @@ class AlatController extends Controller
 
             if ($id_alat == 2) {
                 try {
-                    $response = $client->post('http://127.0.0.1:5000/kualitas-air', [
+                    $response = $client->post('http://192.168.1.3:5000/kualitas-air', [
                         'form_params' => [
                             'suhu' => $suhu,
                             'ph' => $ph,
@@ -65,6 +65,10 @@ class AlatController extends Controller
                         return response()->json(['message' => 'Respon tidak lengkap'], 500);
                     }
 
+                    if (!isset($json['hasil'])) {
+                        return response()->json(['message' => 'Respon tidak lengkap', 'response' => $json], 500);
+                    }
+
                     // Simpan hasil ke database
                     Kualitas::create([
                         'suhu' => $suhu,
@@ -72,7 +76,7 @@ class AlatController extends Controller
                         'tds' => $tds,
                         'do' => $do,
                         'id_alat' => $id_alat,
-                        'hasil' => $json['hasil'],
+                        'hasil' => (float) $json['hasil'],
                         'label' => $json['label'],
                     ]);
 
