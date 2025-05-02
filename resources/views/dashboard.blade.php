@@ -97,16 +97,16 @@
                                 <div id="daterange" class="py-2 px-3 bg-dgreen text-body font-semibold text-lwhite rounded-md flex items-center space-x-2">
                                     <p class="date"><i class="fas fa-calendar-alt"></i><span id="date"></span></p>
                                 </div>
-                                <br/>
+                                <br />
                                 <div id="daterange" class="py-2 px-3 bg-dgreen text-body font-semibold text-lwhite rounded-md flex items-center space-x-2">
                                     <p class="clock"><i class="fas fa-clock"></i><span id="clock"></span></p>
                                 </div>
                             </div>
 
                             <br />
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="flex justify-center items-center">
 
-                                <div class="bg-blue-400 h-full p-4 md:px-8 rounded-lg shadow-lg flex flex-col justify-center items-center">
+                                <!-- <div class="bg-blue-400 h-full p-4 md:px-8 rounded-lg shadow-lg flex flex-col justify-center items-center">
                                     <div class="w-full mb-6 items-center mt-4">
                                         <p class="text-white text-lg font-bold text-center"> Alat 1</p>
                                         <br />
@@ -193,11 +193,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="bg-blue-400 h-full p-4 md:px-8 rounded-lg shadow-lg flex flex-col justify-center items-center">
+                                </div> -->
+                                <div class="bg-blue-400 h-full p-4 md:px-8 rounded-lg shadow-lg flex flex-col justify-center items-center w-1/2">
                                     <div class="w-full mb-6 items-center mt-4">
-                                        <p class="text-white text-lg font-bold text-center"> Alat 2</p>
+                                        <p class="text-white text-lg font-bold text-center"> Data Alat </p>
                                         <br />
                                         <hr style="border: 1px solid black; width: 100%;">
                                         <br />
@@ -234,7 +233,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="w-full mb-6">
+                                    <!-- <div class="w-full mb-6">
                                         <div class="flex justify-between">
                                             <div class="flex w-full">
                                                 <p class="text-white text-md font-bold w-1/3">Amonia</p>
@@ -244,8 +243,7 @@
                                                 </p>
                                             </div>
                                         </div>
-                                    </div>
-
+                                    </div> -->
                                     <div class="w-full mb-6">
                                         <div class="flex justify-between">
                                             <div class="flex w-full">
@@ -278,6 +276,29 @@
                                                 <p class="text-white text-md font-bold w-1/6">:</p>
                                                 <p class="text-white text-md font-bold w-1/2" id="label2">
                                                     {{ $label2 ?? 'No label data available.' }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="w-full mb-6">
+                                        <div class="flex justify-between">
+                                            <div class="flex w-full">
+                                                <p class="text-white text-md font-bold w-1/3">Keadaan Relay</p>
+                                                <p class="text-white text-md font-bold w-1/6">:</p>
+                                                <p class="text-white text-md font-bold w-1/2" id="label2">
+                                                    @if(isset($label2) && $label2 === 'Sangat Baik')
+                                                    Mati
+                                                    @elseif(isset($label2) && $label2 === 'Baik')
+                                                    Mati
+                                                    @elseif(isset($label2) && $label2 === 'Cukup')
+                                                    Hidup(1 Menit)
+                                                    @elseif(isset($label2) && $label2 === 'Buruk')
+                                                    Hidup(3 Menit)
+                                                    @elseif(isset($label2) && $label2 === 'Sangat Buruk')
+                                                    Hidup(5 Menit)
+                                                    @else
+                                                    {{ $label2 ?? 'No label data available.' }}
+                                                    @endif
                                                 </p>
                                             </div>
                                         </div>
