@@ -47,7 +47,7 @@ class AlatController extends Controller
                 'id_alat' => $id_alat
             ]);
 
-            if ($id_alat == 2) {
+            if ($id_alat == 1) {
                 try {
                     $response = $client->post('http://192.168.1.3:5000/kualitas-air', [
                         'form_params' => [

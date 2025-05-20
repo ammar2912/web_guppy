@@ -203,8 +203,8 @@
                                         <p class="text-white text-sm font-bold">
                                             Status : <span id="status2-text">Checking...</span>
                                             <span id="status2-circle" class="inline-block w-3 h-3 rounded-full ml-2" style="background-color: yellow;"></span>
-                                        <p class="text-white text-sm text-right" id="date2"> Tanggal : {{ $created_at_date2 }}</p>
-                                        <p class="text-white text-sm text-right" id="hour2"> Jam : {{ $created_at_hour2 }}</p>
+                                        <p class="text-white text-sm text-right" id="date1"> Tanggal : {{ $created_at_date1 }}</p>
+                                        <p class="text-white text-sm text-right" id="hour1"> Jam : {{ $created_at_hour1 }}</p>
                                         </p>
                                         <br />
                                         <hr style="border: 1px solid black; width: 100%;">
@@ -214,8 +214,8 @@
                                             <div class="flex w-full">
                                                 <p class="text-white text-md font-bold w-1/3">Suhu</p>
                                                 <p class="text-white text-md font-bold w-1/6">:</p>
-                                                <p class="text-white text-md font-bold w-1/2" id="temperature2">
-                                                    {{ $temperature2 . ' C' ?? 'No Temperature data available.' }}
+                                                <p class="text-white text-md font-bold w-1/2" id="temperature1">
+                                                    {{ $temperature1 . ' C' ?? 'No Temperature data available.' }}
                                                 </p>
                                             </div>
                                         </div>
@@ -226,8 +226,8 @@
                                             <div class="flex w-full">
                                                 <p class="text-white text-md font-bold w-1/3">pH</p>
                                                 <p class="text-white text-md font-bold w-1/6">:</p>
-                                                <p class="text-white text-md font-bold w-1/2" id="ph2">
-                                                    {{ $ph2 ?? 'No pH data available.' }}
+                                                <p class="text-white text-md font-bold w-1/2" id="ph1">
+                                                    {{ $ph1 ?? 'No pH data available.' }}
                                                 </p>
                                             </div>
                                         </div>
@@ -249,8 +249,8 @@
                                             <div class="flex w-full">
                                                 <p class="text-white text-md font-bold w-1/3">TDS</p>
                                                 <p class="text-white text-md font-bold w-1/6">:</p>
-                                                <p class="text-white text-md font-bold w-1/2" id="tds2">
-                                                    {{ $tds2 . ' Ppm' ?? 'No TDS data available.' }}
+                                                <p class="text-white text-md font-bold w-1/2" id="tds1">
+                                                    {{ $tds1 . ' Ppm' ?? 'No TDS data available.' }}
                                                 </p>
                                             </div>
                                         </div>
@@ -261,8 +261,8 @@
                                             <div class="flex w-full">
                                                 <p class="text-white text-md font-bold w-1/3">DO</p>
                                                 <p class="text-white text-md font-bold w-1/6">:</p>
-                                                <p class="text-white text-md font-bold w-1/2" id="do2">
-                                                    {{ $do2 . ' Ppm' ?? 'No DO data available.' }}
+                                                <p class="text-white text-md font-bold w-1/2" id="do1">
+                                                    {{ $do1 . ' Ppm' ?? 'No DO data available.' }}
                                                 </p>
                                             </div>
                                         </div>
@@ -274,8 +274,8 @@
                                             <div class="flex w-full">
                                                 <p class="text-white text-md font-bold w-1/3">Kualitas Air</p>
                                                 <p class="text-white text-md font-bold w-1/6">:</p>
-                                                <p class="text-white text-md font-bold w-1/2" id="label2">
-                                                    {{ $label2 ?? 'No label data available.' }}
+                                                <p class="text-white text-md font-bold w-1/2" id="label1">
+                                                    {{ $label1 ?? 'No label data available.' }}
                                                 </p>
                                             </div>
                                         </div>
@@ -285,19 +285,19 @@
                                             <div class="flex w-full">
                                                 <p class="text-white text-md font-bold w-1/3">Keadaan Relay</p>
                                                 <p class="text-white text-md font-bold w-1/6">:</p>
-                                                <p class="text-white text-md font-bold w-1/2" id="label2">
-                                                    @if(isset($label2) && $label2 === 'Sangat Baik')
+                                                <p class="text-white text-md font-bold w-1/2" id="label1">
+                                                    @if(isset($label1) && $label1 === 'Sangat Baik')
                                                     Mati
-                                                    @elseif(isset($label2) && $label2 === 'Baik')
+                                                    @elseif(isset($label1) && $label1 === 'Baik')
                                                     Mati
-                                                    @elseif(isset($label2) && $label2 === 'Cukup')
+                                                    @elseif(isset($label1) && $label1 === 'Cukup')
                                                     Hidup(1 Menit)
-                                                    @elseif(isset($label2) && $label2 === 'Buruk')
+                                                    @elseif(isset($label1) && $label1 === 'Buruk')
                                                     Hidup(3 Menit)
-                                                    @elseif(isset($label2) && $label2 === 'Sangat Buruk')
+                                                    @elseif(isset($label1) && $label1 === 'Sangat Buruk')
                                                     Hidup(5 Menit)
                                                     @else
-                                                    {{ $label2 ?? 'No label data available.' }}
+                                                    {{ $label1 ?? 'No label data available.' }}
                                                     @endif
                                                 </p>
                                             </div>
